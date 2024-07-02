@@ -6,9 +6,9 @@ import { MarkdownBubble } from '../bubble'
 import { useMessageGroup } from './message-group'
 
 const MarkdownMessageContainer = styled(Container)<{
-  from: 'ASSISTANT' | 'USER'
+  from: 'assistant' | 'user'
 }>`
-  padding: ${({ from }) => (from === 'ASSISTANT' ? '0 41px' : '0 16px')};
+  padding: ${({ from }) => (from === 'assistant' ? '0 41px' : '0 16px')};
 
   &:not(:first-child) {
     .chat-bubble {

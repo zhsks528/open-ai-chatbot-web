@@ -2,9 +2,10 @@ import { createContext, useContext, type ReactNode } from 'react'
 import { Container, FlexBox } from '@titicaca/core-elements'
 
 import { AssistantProfile } from '../profile/assistant-profile'
+import type { Role } from '@/chat-room/widgets/message-history/types'
 
 interface Context {
-  from: 'ASSISTANT' | 'USER'
+  from: Role
 }
 
 const Context = createContext<Context | undefined>(undefined)
@@ -13,17 +14,17 @@ export function MessageGroup({
   from,
   children,
 }: {
-  from: 'ASSISTANT' | 'USER'
+  from: Role
   children: ReactNode
 }) {
   return (
     <Context.Provider value={{ from }}>
       <Container position="relative" css={{ marginBottom: 16 }}>
-        {from === 'ASSISTANT' ? <AssistantProfile /> : null}
+        {from === 'assistant' ? <AssistantProfile /> : null}
         <FlexBox
           flex
           flexDirection="column"
-          alignItems={from === 'ASSISTANT' ? 'flex-start' : 'flex-end'}
+          alignItems={from === 'assistant' ? 'flex-start' : 'flex-end'}
           gap="8px"
           css={{ padding: 0 }}
         >

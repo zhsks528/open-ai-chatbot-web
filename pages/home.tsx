@@ -1,15 +1,10 @@
 import { GetServerSidePropsResult } from 'next'
 import { DehydratedState, QueryClient, dehydrate } from '@tanstack/react-query'
 
-import { ChatRoom } from '@/chat-room'
-import { PromptMessageProvider } from '@/chat-room/widgets/message-prompt/prompt-context'
+import { Home } from '@/home'
 
 export default function ChatRoomPage() {
-  return (
-    <PromptMessageProvider>
-      <ChatRoom />
-    </PromptMessageProvider>
-  )
+  return <Home />
 }
 
 export function getServerSideProps(): GetServerSidePropsResult<{

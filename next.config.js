@@ -57,6 +57,11 @@ const nextConfig = {
         destination: `${WEB_URL_BASE}/favicon.ico`,
         basePath: false,
       },
+      {
+        source: '/azure-api/:path*',
+        destination: `https://redesigned-giggle-vqq5rj57j9rh6xjv-8080.app.github.dev/:path*`,
+        basePath: false,
+      },
     ]
   },
 }

@@ -17,17 +17,17 @@ const Spinner = styled.svg`
   @keyframes bounce {
     0% {
       transform: translateY(4px);
-      fill: var(--palette-skyblue20);
+      fill: var(--color-blue);
     }
 
     50% {
       transform: translateY(-4px);
-      fill: var(--palette-skyblue100);
+      fill: var(--color-blue500);
     }
 
     100% {
       transform: translateY(4px);
-      fill: var(--palette-skyblue20);
+      fill: var(--color-blue);
     }
   }
 `

@@ -31,8 +31,13 @@ export function MessageIcon({ disabled }: { disabled: boolean }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="48" height="32" rx="16" fill="#7743EE" />
-      <rect width="16" height="16" transform="translate(16 8)" fill="#7743EE" />
+      <rect width="48" height="32" rx="16" fill="var(--color-blue)" />
+      <rect
+        width="16"
+        height="16"
+        transform="translate(16 8)"
+        fill="var(--color-blue)"
+      />
       <path
         fillRule="evenodd"
         clipRule="evenodd"

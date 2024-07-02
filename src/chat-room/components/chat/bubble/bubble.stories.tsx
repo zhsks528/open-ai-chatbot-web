@@ -11,13 +11,13 @@ const meta: Meta<typeof Bubble> = {
 export default meta
 
 export const Spinner: StoryObj<typeof SpinnerBubble> = {
-  render: () => <SpinnerBubble from="ASSISTANT">waiting...</SpinnerBubble>,
+  render: () => <SpinnerBubble from="assistant">waiting...</SpinnerBubble>,
 }
 
 export const Text: StoryObj<typeof TextBubble> = {
   render: (args) => <TextBubble {...args} />,
   args: {
-    from: 'USER',
+    from: 'user',
     children:
       '명동에 위치한 명동 교자 본점 가는 방법은 지하철 4호선 명동역 8번 출구에서 도보 2분, 명동 성당에서 도보 4분이 소요됩니다.',
   },
@@ -26,7 +26,7 @@ export const Text: StoryObj<typeof TextBubble> = {
 export const Typewriter: StoryObj<typeof TextBubble> = {
   render: (args) => <TextBubble {...args} />,
   args: {
-    from: 'ASSISTANT',
+    from: 'assistant',
     $typing: true,
     children:
       '명동에 위치한 명동 교자 본점 가는 방법은 지하철 4호선 명동역 8번 출구에서 도보 2분, 명동 성당에서 도보 4분이 소요됩니다.',

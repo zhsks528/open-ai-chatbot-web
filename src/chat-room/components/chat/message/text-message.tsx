@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import { Container } from '@titicaca/core-elements'
 
+import { Role } from '@/chat-room/widgets/message-history/types'
+
 import { TextBubble } from '../bubble'
 
 import { useMessageGroup } from './message-group'
 
-const TextMessageContainer = styled(Container)<{ from: 'ASSISTANT' | 'USER' }>`
-  padding: ${({ from }) => (from === 'ASSISTANT' ? '0 41px' : '0 16px')};
+const TextMessageContainer = styled(Container)<{ from: Role }>`
+  padding: ${({ from }) => (from === 'assistant' ? '0 41px' : '0 16px')};
 
   &:not(:first-child) {
     .chat-bubble {
