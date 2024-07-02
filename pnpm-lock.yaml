@@ -44,6 +44,9 @@ dependencies:
   i18next:
     specifier: ^22.5.1
     version: 22.5.1
+  marked:
+    specifier: ^13.0.1
+    version: 13.0.1
   next:
     specifier: ^13.4.12
     version: 13.5.6(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1)(react@18.3.1)
@@ -10187,6 +10190,12 @@ packages:
     dependencies:
       react: 18.3.1
     dev: true
+
+  /marked@13.0.1:
+    resolution: {integrity: sha512-7kBohS6GrZKvCsNXZyVVXSW7/hGBHe49ng99YPkDCckSUrrG7MSFLCexsRxptzOmyW2eT5dySh4Md1V6my52fA==}
+    engines: {node: '>= 18'}
+    hasBin: true
+    dev: false
 
   /marky@1.2.5:
     resolution: {integrity: sha512-q9JtQJKjpsVxCRVgQ+WapguSbKC3SQ5HEzFGPAJMStgh3QjCawp00UKv3MTTAArTmGmmPUvllHZoNbZ3gs0I+Q==}

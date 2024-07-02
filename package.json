@@ -59,6 +59,7 @@
     "@titicaca/triple-fallback-action": "^13.26.1",
     "abortcontroller-polyfill": "^1.7.5",
     "i18next": "^22.5.1",
+    "marked": "^13.0.1",
     "next": "^13.4.12",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
