@@ -96,3 +96,5 @@ jspm_packages/
 
 # Sentry
 .sentryclirc
+
+*storybook.log
