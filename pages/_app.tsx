@@ -1,33 +1,33 @@
-import App, { AppContext, AppInitialProps, AppProps } from "next/app";
-import Script from "next/script";
+import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
+import Script from 'next/script'
 import {
   EnvProvider,
   generateUserAgentValues,
   HistoryProvider,
   SessionContextProvider,
   UserAgentProvider,
-} from "@titicaca/react-contexts";
+} from '@titicaca/react-contexts'
 import {
   TripleClientMetadataProvider,
   AppName,
-} from "@titicaca/react-triple-client-interfaces";
+} from '@titicaca/react-triple-client-interfaces'
 import {
   AppleSmartBannerMeta,
   CommonMeta,
   EssentialContentMeta,
   FacebookAppLinkMeta,
   FacebookOpenGraphMeta,
-} from "@titicaca/meta-tags";
-import { useTripleFallbackActionRemover } from "@titicaca/triple-fallback-action";
-import { appWithTranslation } from "@titicaca/next-i18next";
-import { i18nConfig } from "@titicaca/i18n";
+} from '@titicaca/meta-tags'
+import { useTripleFallbackActionRemover } from '@titicaca/triple-fallback-action'
+import { appWithTranslation } from '@titicaca/next-i18next'
+import { i18nConfig } from '@titicaca/i18n'
 
 interface CustomAppProps {
-  userAgent: ReturnType<typeof generateUserAgentValues>;
-  sessionContextProviderProps: Parameters<typeof SessionContextProvider>[0];
+  userAgent: ReturnType<typeof generateUserAgentValues>
+  sessionContextProviderProps: Parameters<typeof SessionContextProvider>[0]
   tripleClientMetadataProviderProps:
     | Parameters<typeof TripleClientMetadataProvider>[0]
-    | null;
+    | null
 }
 
 function MyApp({
@@ -42,28 +42,26 @@ function MyApp({
     !process.env.NEXT_PUBLIC_WEB_URL_BASE
   ) {
     throw new Error(
-      "Insufficient Environment Variables\n- NEXT_PUBLIC_APP_URL_SCHEME\n- NEXT_PUBLIC_WEB_URL_BASE",
-    );
+      'Insufficient Environment Variables\n- NEXT_PUBLIC_APP_URL_SCHEME\n- NEXT_PUBLIC_WEB_URL_BASE',
+    )
   }
 
-  useTripleFallbackActionRemover();
+  useTripleFallbackActionRemover()
 
   return (
     <>
-      <GoogleAnalyticsScript />
-
       <EnvProvider
         appUrlScheme={process.env.NEXT_PUBLIC_APP_URL_SCHEME}
         webUrlBase={process.env.NEXT_PUBLIC_WEB_URL_BASE}
         authBasePath="/"
-        facebookAppId={process.env.NEXT_PUBLIC_FB_APP_ID || ""}
-        defaultPageTitle={process.env.NEXT_PUBLIC_DEFAULT_PAGE_TITLE || ""}
+        facebookAppId={process.env.NEXT_PUBLIC_FB_APP_ID || ''}
+        defaultPageTitle={process.env.NEXT_PUBLIC_DEFAULT_PAGE_TITLE || ''}
         defaultPageDescription={
-          process.env.NEXT_PUBLIC_DEFAULT_PAGE_DESCRIPTION || ""
+          process.env.NEXT_PUBLIC_DEFAULT_PAGE_DESCRIPTION || ''
         }
-        afOnelinkId={process.env.NEXT_PUBLIC_AF_ONELINK_ID || ""}
-        afOnelinkPid={process.env.NEXT_PUBLIC_AF_ONELINK_PID || ""}
-        afOnelinkSubdomain={process.env.NEXT_PUBLIC_AF_ONELINK_SUBDOMAIN || ""}
+        afOnelinkId={process.env.NEXT_PUBLIC_AF_ONELINK_ID || ''}
+        afOnelinkPid={process.env.NEXT_PUBLIC_AF_ONELINK_PID || ''}
+        afOnelinkSubdomain={process.env.NEXT_PUBLIC_AF_ONELINK_SUBDOMAIN || ''}
       >
         <CommonMeta />
         <EssentialContentMeta />
@@ -89,7 +87,7 @@ function MyApp({
         </TripleClientMetadataProvider>
       </EnvProvider>
     </>
-  );
+  )
 }
 
 MyApp.getInitialProps = async (
@@ -98,10 +96,10 @@ MyApp.getInitialProps = async (
   const {
     ctx,
     ctx: { req },
-  } = appContext;
+  } = appContext
   const userAgent = generateUserAgentValues(
-    req ? (req.headers || {})["user-agent"] || "" : navigator.userAgent,
-  );
+    req ? (req.headers || {})['user-agent'] || '' : navigator.userAgent,
+  )
 
   const [
     appInitialProps,
@@ -111,34 +109,14 @@ MyApp.getInitialProps = async (
     App.getInitialProps(appContext),
     SessionContextProvider.getInitialProps(ctx),
     TripleClientMetadataProvider.getInitialProps(ctx),
-  ]);
+  ])
 
   return {
     ...appInitialProps,
     userAgent,
     sessionContextProviderProps,
     tripleClientMetadataProviderProps,
-  };
-};
-
-function GoogleAnalyticsScript() {
-  return (
-    <>
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-          ga('create', '${
-            process.env.NEXT_PUBLIC_GA_PROPERTY_ID || ""
-          }', 'auto');
-        `}
-      </Script>
-
-      <Script
-        src="https://www.google-analytics.com/analytics.js"
-        strategy="afterInteractive"
-      />
-    </>
-  );
+  }
 }
 
-export default appWithTranslation(MyApp, i18nConfig);
+export default appWithTranslation(MyApp, i18nConfig)
