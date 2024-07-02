@@ -1,5 +1,10 @@
+import { useState } from 'react'
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
-import Script from 'next/script'
+import {
+  HydrationBoundary,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import {
   EnvProvider,
   generateUserAgentValues,
@@ -45,8 +50,21 @@ function MyApp({
       'Insufficient Environment Variables\n- NEXT_PUBLIC_APP_URL_SCHEME\n- NEXT_PUBLIC_WEB_URL_BASE',
     )
   }
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000,
+          },
+        },
+      }),
+  )
 
   useTripleFallbackActionRemover()
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  const dehydratedState = pageProps.dehydratedState as unknown
 
   return (
     <>
@@ -80,7 +98,11 @@ function MyApp({
               }
             >
               <UserAgentProvider value={userAgent}>
-                <Component {...pageProps} />
+                <QueryClientProvider client={queryClient}>
+                  <HydrationBoundary state={dehydratedState}>
+                    <Component {...pageProps} />
+                  </HydrationBoundary>
+                </QueryClientProvider>
               </UserAgentProvider>
             </HistoryProvider>
           </SessionContextProvider>
