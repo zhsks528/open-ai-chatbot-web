@@ -1,0 +1,1 @@
+module.exports = [] // 여기에 검사할 url을 추가하세요

@@ -1,0 +1,11 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    uses: titicacadev/triple-actions/.github/workflows/web-ci.yml@v1
+    secrets: inherit

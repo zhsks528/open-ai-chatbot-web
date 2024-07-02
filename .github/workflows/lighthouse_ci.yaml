@@ -1,0 +1,92 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    types:
+      - opened
+  issue_comment:
+    types:
+      - created
+
+env:
+  # Node.js
+  NODE_VERSION: '18.x'
+  NODE_AUTH_TOKEN: ${{ secrets.READ_ONLY_NPM_TOKEN }}
+  HUSKY: 0
+  SLACK_GITHUB_REPOSITORY: ${{ github.repository }}
+
+jobs:
+  lighthouse:
+    if: github.event_name == 'pull_request' || contains(github.event.comment.body, '/lighthouse')
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Recognize head SHA of pull request
+        if: contains(github.event.comment.body, '/lighthouse')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx @titicaca/gha-tools fetch-github-pr ${{ github.event.issue.number }}
+          PR_REF=$(cat ./pr.json | jq -r '.head.ref')
+          echo "PR_REF=$PR_REF" >> $GITHUB_ENV
+
+      - name: Checkout PR branch
+        if: contains(github.event.comment.body, '/lighthouse')
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ env.PR_REF }}
+
+      - name: Checkout PR branch
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Run lighthouse CI
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: |
+          npm install -g @lhci/cli
+          lhci autorun || {
+            echo "Fail to Run Lighthouse CI!"
+            exit 1
+          }
+
+      - name: Format lighthouse score
+        id: format_lighthouse_score
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs');
+            const repo_root = process.env.GITHUB_WORKSPACE;
+            const reportLinks = JSON.parse(fs.readFileSync(`${repo_root}/.lighthouseci/links.json`));
+            let comments = [
+            '⚡️Lighthouse CI Report',
+            '| TARGET | REPORT |',
+            '| --- | --- |',
+            ];
+            Object.entries(reportLinks).forEach(([target, report]) => {
+              comments.push(`| ${target} | ${report} |`);
+            });
+            core.setOutput('comments', comments.join('\n'));
+
+      - name: comment PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: ${{ steps.format_lighthouse_score.outputs.comments }}
+          allow-repeats: true
