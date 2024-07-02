@@ -58,6 +58,7 @@
   },
   "dependencies": {
     "@sentry/nextjs": "^8.13.0",
+    "@tanstack/react-query": "^5.49.2",
     "@titicaca/constants": "^13.26.1",
     "@titicaca/core-elements": "^13.26.1",
     "@titicaca/ecs-dd-trace": "^6.4.1",

@@ -8,6 +8,9 @@ dependencies:
   '@sentry/nextjs':
     specifier: ^8.13.0
     version: 8.13.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.25.1)(@opentelemetry/instrumentation@0.52.1)(@opentelemetry/sdk-trace-base@1.25.1)(@opentelemetry/semantic-conventions@1.25.1)(next@13.5.6)(react@18.3.1)(webpack@5.92.1)
+  '@tanstack/react-query':
+    specifier: ^5.49.2
+    version: 5.49.2(react@18.3.1)
   '@titicaca/constants':
     specifier: ^13.26.1
     version: 13.26.1
@@ -5172,6 +5175,19 @@ packages:
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
     dependencies:
       tslib: 2.6.3
+
+  /@tanstack/query-core@5.49.1:
+    resolution: {integrity: sha512-JnC9ndmD1KKS01Rt/ovRUB1tmwO7zkyXAyIxN9mznuJrcNtOrkmOnQqdJF2ib9oHzc2VxHomnEG7xyfo54Npkw==}
+    dev: false
+
+  /@tanstack/react-query@5.49.2(react@18.3.1):
+    resolution: {integrity: sha512-6rfwXDK9BvmHISbNFuGd+wY3P44lyW7lWiA9vIFGT/T0P9aHD1VkjTvcM4SDAIbAQ9ygEZZoLt7dlU1o3NjMVA==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': 5.49.1
+      react: 18.3.1
+    dev: false
 
   /@testing-library/dom@10.1.0:
     resolution: {integrity: sha512-wdsYKy5zupPyLCW2Je5DLHSxSfbIp6h80WoHOQc+RPtmPGA52O9x5MJEkv92Sjonpq+poOAtUKhh1kBGAXBrNA==}
