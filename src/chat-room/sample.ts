@@ -78,6 +78,15 @@ export const SAMPLE_MESSAGES = [
       },
     ],
   },
+  {
+    role: 'assistant',
+    content: [
+      {
+        // 대표이미지
+        text: '오사카 - 간사이 공항 리무진 버스',
+      },
+    ],
+  },
   // {
   //   role: 'user',
   //   content: [

@@ -20,7 +20,7 @@ const BubbleContainer = styled(Container)<BubbleProp>`
     from === 'user'
       ? css`
           border-radius: 20px 4px 20px 20px;
-          background-color: var(--palette-gray);
+          background-color: var(--color-white);
           color: var(--color-gray);
         `
       : css`

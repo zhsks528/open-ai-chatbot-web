@@ -4,6 +4,12 @@ import { postMessage } from '../services'
 
 export function useBookerInfoEditMutation() {
   return useMutation({
-    mutationFn: ({ message }: { message: string }) => postMessage({ message }),
+    mutationFn: ({
+      message,
+      selectedProductId,
+    }: {
+      message: string
+      selectedProductId: string
+    }) => postMessage({ message, selectedProductId }),
   })
 }

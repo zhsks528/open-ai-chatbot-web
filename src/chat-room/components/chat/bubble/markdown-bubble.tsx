@@ -18,12 +18,19 @@ const Markdown = styled.div`
     margin-top: 10px;
   }
 
-  ol {
+  ol,
+  ul {
     margin: 10px 0;
 
     & > li {
       margin: 10px 0;
     }
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 10px 0;
   }
 
   a {

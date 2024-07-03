@@ -10,6 +10,7 @@ import { Container } from '@titicaca/core-elements'
 import { MessageIcon } from '@/chat-room/components/inline-icons/message-icon'
 
 import { usePrompt } from './prompt-context'
+import { useRouter } from 'next/router'
 
 const MIN_TEXTAREA_HEIGHT = 21
 const MAX_TEXTAREA_HEIGHT = 105
@@ -74,13 +75,11 @@ const SendButton = styled.button<{ disabled: boolean }>`
         `};
 `
 
-interface PromptFormProps {
-  onSubmit?: (text: string) => void
-}
+export function PromptForm() {
+  const { query } = useRouter()
+  const { customMessages, onMessageSubmit, onCustomMessageSubmit } = usePrompt()
 
-export function PromptForm({ onSubmit }: PromptFormProps) {
-  const { onMessageSubmit } = usePrompt()
-
+  const { entry_departure } = query
   const [text, setText] = useState('')
 
   const inputRef = useRef<HTMLTextAreaElement>(null)
@@ -97,6 +96,18 @@ export function PromptForm({ onSubmit }: PromptFormProps) {
     }
   }
 
+  const handleCustomSubmit: FormEventHandler<HTMLFormElement> = async (ev) => {
+    ev.preventDefault()
+
+    onCustomMessageSubmit(text)
+
+    setText('')
+
+    if (inputRef.current) {
+      resetHeight(inputRef.current)
+    }
+  }
+
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (ev) => {
     const textarea = ev.target
     setText(textarea.value)
@@ -105,8 +116,16 @@ export function PromptForm({ onSubmit }: PromptFormProps) {
 
   const unSubmittable = !text.trim()
 
+  console.log('customMessages', customMessages)
+
+  const onSubmit = entry_departure
+    ? customMessages.length === 4
+      ? handleSubmit
+      : handleCustomSubmit
+    : handleSubmit
+
   return (
-    <InputForm onSubmit={handleSubmit}>
+    <InputForm onSubmit={onSubmit}>
       <InputContainer>
         <TextArea
           data-testid="prompt-textarea"

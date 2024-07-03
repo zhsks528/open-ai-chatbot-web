@@ -75,7 +75,19 @@ export function Home() {
           inlineBlock
           padding={{ top: 20, left: 20, right: 20, bottom: 20 }}
         >
-          여행지에서 이동할 때 맞다AI로 들어와 🤖
+          1. 여행지에서 이동할 때 맞다AI로 들어와 🤖
+        </Text>
+      </Link>
+
+      <Link href="/?entry_departure=Kansai">
+        <Text
+          size={15}
+          bold
+          color="gray"
+          inlineBlock
+          padding={{ top: 20, left: 20, right: 20, bottom: 20 }}
+        >
+          2. 간사이 공항에 들어왔을 경우
         </Text>
       </Link>
 
